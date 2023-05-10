@@ -1,0 +1,43 @@
+&stru_parameters
+lin_snap = .true.       ! Handle snapshot load transfer according to linear theory       
+wl_pres = 1             ! =1: pressure scaling at waterline intersecting elements       
+                        ! =2: no pressure scaling 
+wl_pres_xmin = -1e+030       
+wl_pres_xmax = 1e+030         
+waveam = -1            
+gripre = 'snap'          ! Prefix and path for *SnapG1.SIF file
+filpre = ''              ! Prefix and path of L file   
+iseana = #FMT#         
+distol = 50              ! Tolerance in overlapping panel-areas
+angtol = 30              ! Tolerance in panel-orientation (degrees)
+iflgra = 1               ! Include (1) or not include (0) fluctuating gravity
+lform = .false.          ! Write formatted (true) or unformatted (false) L-files
+istatn = 0
+ntnk = 6
+tnknum =  2 3 4 5 6 7
+rhotan =  1025 1025 1025 1025 1025 1025
+naccpt = 6
+accusr =  2 3 4 5 6 7
+accpt =  -33.9556  5.08561  -17.45
+ -33.9556  -5.08558  -17.45
+ 12.5736  31.9492  -17.45
+ 12.5735  -31.9492  -17.45
+ 21.382  -26.8636  -17.45
+ 21.3821  26.8636  -17.45
+
+nzerpt = 6
+zerusr =  2 3 4 5 6 7
+zeropt =  -33.9556  5.0856  -14.9
+ -33.9556  -5.08559  -14.9
+ 12.5736  31.9492  -14.9
+ 12.5735  -31.9492  -14.9
+ 21.3821  -26.8636  -14.9
+ 21.3821  26.8636  -14.9
+
+npoint = 0
+mor_topsel = #topsel#   ! Top level super element number, found by Sesam Wind Manager in the file specified on Global Settings
+Tstart = #Tstart#       ! First Snapshot, should be equal to first time step, i.e. Structural Analysis Time Step from Glob 
+Tlast = #Tlast#         ! Last snapshot, should match Simulation Length from Global Settings or from Wave/Wind Design Load
+DELT = #Delt#           ! Snapshot interval between the first and the last, should match Structural Analysis Time Step fro
+NSTEP = #Nstep#         ! Number of time steps, automatically decided by Sesam Wind Manager
+/

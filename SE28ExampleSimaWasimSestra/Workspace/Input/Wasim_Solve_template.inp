@@ -1,0 +1,153 @@
+&wasim_inp       !Mandatory namelist tag
+!-----------------------------------------------------------------------
+!    Constants:
+!-----------------------------------------------------------------------
+alength      = 1
+!-----------------------------------------------------------------------
+!    Input files:
+!-----------------------------------------------------------------------
+filejou     = 'Floater'       ! Automatically decided by Sesam Wind Manager
+file_ssg    = 'Floater.ssg'   ! Based on file specified on Global Settings
+file_drygeo = '0'             ! Automatically decided by Sesam Wind Manager
+file_mass   = 'Wasim_Mass.inp'      ! Based on file specified on Global Settings
+!-----------------------------------------------------------------------
+!    Simulation tab:
+!-----------------------------------------------------------------------
+mffb   =    1   1   1   1   1   1
+mode   = 0
+speedx   = 0                   ! Forward speed
+!-----------------------------------------------------------------------
+!    Time step tab:
+!-----------------------------------------------------------------------
+tstep   = #dt1#                 ! Time step for simulation in seconds
+tmax   = #Tmax#                 ! Simulation duration in seconds
+!-----------------------------------------------------------------------
+!    Initial Condition tab:
+!-----------------------------------------------------------------------
+sdis0   = 0   0   0   0   0   0 
+svel0   = 0   0   0   0   0   0 
+!-----------------------------------------------------------------------
+!    Algorithm tab:
+!-----------------------------------------------------------------------
+istart      =   0
+ifsbc    =   0
+ischeme  =   1
+ilin     =   0   ! 0 Linear; 3 Nonlinear
+kfilter  =   10
+infbnd   =   0   ! 0 boundary connectivity conditions used; 1 no boundary connectivity conditions used
+!-----------------------------------------------------------------------
+!    Animation tab:
+!-----------------------------------------------------------------------
+filewp      = '0'
+!-----------------------------------------------------------------------
+!    Global response tab:
+!-----------------------------------------------------------------------
+xmtn     =   0    ! Motion reference point where the motion and forces are written relatively
+ymtn     =   0
+zmtn     =   0
+filefrc     = 'Wasim.frc'
+filepr      = 'Wasim_loadTransfer'
+filemot     = 'Wasim.mot'
+filerel     = '0'
+filewel     = '0'
+load_moor = F
+!-----------------------------------------------------------------------
+!    Output files:
+!-----------------------------------------------------------------------
+filepf      = '0'
+shippar     = 'Wasim.par'
+detfrc      = '0'
+filld       = 'Wasim'
+filestatus  = 'replace'   ! Always replace
+!-----------------------------------------------------------------------
+!    Location data:
+!-----------------------------------------------------------------------
+grav         = 9.80665 ! Gravitational constant in Global Settings
+density      = 1025    ! Water density
+sea_depth    = 200     ! Depth constant in Global Settings +- extra in DLC
+!-----------------------------------------------------------------------
+!    Panel pressure data:
+!-----------------------------------------------------------------------
+npress  = 0
+xpress  = 0
+ypress  = 0
+zpress  = 0
+!-----------------------------------------------------------------------
+!    Morison model
+!-----------------------------------------------------------------------
+mor_path = ''        ! Path of Morison model file, based on file specified on Global Settings
+mor_topsel = #FMT#   ! Top level super element model number, found by Sesam Wind Manager in the file specified on Global Settings
+!-----------------------------------------------------------------------
+!    2D Morison element parameters ! Copy inputs from HydroD generated parameters if any 2D Morison element parameters defined
+!-----------------------------------------------------------------------
+m2d_nsect = 4
+m2d_sref = 
+        16   15   13   14   
+m2d_nsub = 
+         1   1   1   1   
+m2d_diam = 
+       6.5   1.6   0.024   0.012   
+m2d_cd_ksi = 
+       0.7   0.7   700   700   
+m2d_cd_eta = 
+       0.7   0.7   700   700   
+m2d_ca_ksi = 
+         1   1   0   0   
+m2d_ca_eta = 
+         1   1   0   0   
+!-----------------------------------------------------------------------
+!    Pressure area elements
+!-----------------------------------------------------------------------
+pae_nelem = 17
+pae_node_no = 
+       218   209   213   214   666   886   1323   
+1388   1785   914   942   1319   2083   2084   
+2091   2538   2540   
+pae_x = 
+    14.435   14.435   14.435   14.435   -28.870001   -17.61167   3.1766694   
+-28.870001   7.9350004   -15.870001   -17.61167   14.435   3.1766694   7.9350004   
+14.435   0   3.3855173e-009   
+pae_y = 
+-25.002153   25.002153   25.002153   -25.002153   0   -6.5000001   -18.502154   
+0   -13.743824   0   6.5000001   -12.002153   18.502154   13.743824   
+12.002153   0   0   
+pae_z = 
+       -15   -19   -15   -19   -15   -17   -17   
+-19   -17   -17   -17   -17   -17   -17   
+-17   -19   -16   
+pae_diam = 
+0.02078461   0.024   0.02078461   0.024   0.02078461   1.6   1.6   
+0.024   1.6   1.6   1.6   1.6   1.6   1.6   
+1.6   6.5   2.4207962   
+!-----------------------------------------------------------------------
+!    TLP element input  
+!-----------------------------------------------------------------------
+tlp_nelem = 0  ! Copy inputs from HydroD generated parameters if any TLP element input defined
+!-----------------------------------------------------------------------
+!    Anchor element input
+!-----------------------------------------------------------------------
+anc_nelem = 0  ! Copy inputs from HydroD generated parameters if any Anchor element input defined
+!-----------------------------------------------------------------------
+!    Incident waves data:
+!-----------------------------------------------------------------------
+nomega    = 0
+period    = 0
+beta      = 0
+ampltd    = 0
+phase     = 0
+iwave_model = 3 ! Airy wave model
+iwave_file  = '0'
+!-----------------------------------------------------------------------
+!    Extra parameters:
+!-----------------------------------------------------------------------
+iwavelevSima_file ='  sima.wave '                  ! Prescribed wave elevation time history, output from Sima      
+file_SimaWaveHeading = '  sima.wavedirection '     ! If short crested wave applied in Sima, use wave components output by Sima instead
+file_faux_sima ='  sima.force '                    ! Prescribed forces/moments, output from Sima
+/
+file_SimaForceLocations = '  sima.forcepoints '  
+filepmot_Sima = ' sima.motion '                    ! File containing prescribed motion output from Sima
+!
+tprescribe_start = #Tstart#
+tprescribe = #Tlast#
+IMSTEP =0
+/
