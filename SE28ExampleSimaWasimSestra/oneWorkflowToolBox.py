@@ -1,5 +1,6 @@
 
 from dnv.oneworkflow.oneworkflowclient import OneWorkflowClient
+import os
 from dnv.onecompute import (
     Job,
     JobEventArgs,
@@ -10,25 +11,19 @@ from dnv.onecompute import (
 
 
 """Tests Workflow"""
-import asyncio
-import json
-import os
+
 from enum import Enum, unique
 from typing import Any
 
 from dnv.onecompute import (
     Environment,
-    FileSpecification,
+ 
 )
-from dnv.onecompute.flowmodel import ParallelWork, WorkUnit
-from dnv.oneworkflow.composite_executable_command import CompositeExecutableCommand
-from dnv.oneworkflow.config import (
-    ExecutionContextConfiguration,
-    WorkerConfiguration,
-    WorkflowRunnerConfiguration,
-    WorkspaceConfiguration,
-)
+from dnv.onecompute.directory_client import FileOptions
 from dnv.oneworkflow.oneworkflowclient import OneWorkflowClient, OneWorkflowConfig
+from dnv.oneworkflow.config import LogLevel, WorkspaceConfiguration
+CLOUD_APP_ID = "DAImproveFlowWorkflowCoreWorkerLinux"
+LOCAL_APP_ID = "OneWorkflowWorkerHost"
 
 
 @unique
@@ -37,36 +32,30 @@ class Platform(Enum):
     Linux = 1
 
 
-class WorkflowBuilder:
-    """Workflow builder"""
 
-    def __init__(
-        self, workspaceConfig: WorkspaceConfiguration,  runnerConfig: WorkflowRunnerConfiguration, is_cloud_run: bool = True
-    ):
-        self.platform = Platform.Linux
-        self.cloud_run = is_cloud_run
-        self.workspace =  workspaceConfig
+PLATFORM = Platform.Windows
+default_service_path = os.path.join(os.environ["LOCALAPPDATA"],"OneCompute","LocalWorkflowHostExecutable","wc.exe")
+
+def one_workflow_client(workspace_id: str, workspace_path: str, cloud_run: bool, tmp: str, debug: bool = False) -> OneWorkflowClient:
+    """Returns an instance of the OneWorkflowClient"""
+
+    workflow_client = OneWorkflowClient(
         
-        self.worflow_runner = runnerConfig
-        self.worker = WorkerConfiguration(
-            command="ImproveFlowWorker",
-            #service_name="DAImproveFlowWorkflowCoreWorkerLinux",
-            service_name="OneWorkflowWorkerHost"
-            #service_name="ImproveFlowWorkerLinux",
-        )
-        if self.cloud_run:
-            self.worker.service_name = "ImproveFlowWorkerLinux"
-        self.execution_context = ExecutionContextConfiguration(
-            cloud_execution_context=self.cloud_run, environment=Environment.Testing
-        )
-        self.oneworkflow_conf = OneWorkflowConfig(
-            execution_context_config=self.execution_context,
-            workflow_runner_config=self.worflow_runner,
-            worker_config=self.worker,
-            workspace_config=self.workspace,
-            job_status_polling_interval=2,
-        )
-        self.oneworkflow_client = OneWorkflowClient(self.oneworkflow_conf)
+        temp_path = tmp,
+        cloud_run=cloud_run,
+        workspace_id=workspace_id,
+        workspace_path=workspace_path,
+        environment=Environment.Testing,
+        application_id=LOCAL_APP_ID if not cloud_run else CLOUD_APP_ID,
+        executable_name="" if not cloud_run else "ImproveFlowWorker",
+        #local_worker_host_service_path=r'C:\Users\kblu\source\repos\WorkflowDP\src\dotnet\DNV.One.Workflow.Hosts.LocalWorkflowHost\bin\Debug\net6.0\wc.exe' if debug else default_service_path,
+        local_worker_host_apps_path=r'C:\Users\kblu\source\repos\WorkflowDP\src\dotnet\DNV.One.Workflow.WorkerHosts.OneWorkflowWorkerHost.Local\bin\Debug\net6.0' if debug else "",
+        debug_local_worker=debug,
+        console_log_level=LogLevel.Warning,
+    )
+    print(workflow_client.one_workflow_config.workflow_runner_config.temp_folder_path)
+    return workflow_client
+
 
 def job_status_changed_callback(client: OneWorkflowClient, job: Job):
     """Returns 'job_status_changed' callback"""
@@ -78,17 +67,32 @@ def job_status_changed_callback(client: OneWorkflowClient, job: Job):
 
 
 def work_item_status_changed_callback(client: OneWorkflowClient):
-    """Returns 'work_item_status_changed' callback"""
+    """Returns the job status changed callback function"""
 
     async def work_item_status_changed(_: OneComputeClient, event: WorkItemEventArgs):
         print(
             f"The status of work item '{event.work_item_id}' is '{event.work_status.name}'"
         )
-        if event.work_status in (WorkStatus.Completed, WorkStatus.Faulted):
-            await client.download_result_files_async(
-                event.job_id, event.work_item_id
-            )
+        if event.work_status in [
+            WorkStatus.Completed,
+            WorkStatus.Faulted,
+            WorkStatus.Aborted,
+        ]:
+            client.download_job_logs(event.job_id, event.work_item_id)
+            if event.work_status != WorkStatus.Aborted:
+                await client.download_result_files_async(
+                    event.job_id,
+                    event.work_item_id,
+                    FileOptions(
+                        max_size_bytes=11124_000,
+                        min_size_bytes=0,
+                        #patterns=["**/*.txt", "**/*.tda"],
+                        patterns=["**/*.*"],
+                    ),
+                )
+
     return work_item_status_changed
+
 
 
 async def job_progress_changed(_: OneComputeClient, event: JobEventArgs):
