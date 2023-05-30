@@ -37,32 +37,26 @@ class WasimAndSestraTaskCreator:
                 working_dir=self.load_case_result_files_dir)
         wasim_setup_cmd = WasimSetupCommand()
         wasim_setup_cmd.WorkingDirectory = self.load_case_result_files_dir
-        wasim_setup_cmd.TemplateInputFile = os.path.join(
-            f"..\jobpreparation\{self.common_file_path}", "Wasim_Setup_template.inp")
+        wasim_setup_cmd.TemplateInputFile = "Wasim_Setup_template.inp"
         wasim_setup_cmd.Parameters = templateParameters
         wasim_solve_cmd = WasimSolveCommand()
         wasim_solve_cmd.WorkingDirectory = self.load_case_result_files_dir
         wasim_solve_cmd.Parameters = templateParameters
-        wasim_solve_cmd.TemplateInputFile = os.path.join(
-            f"..\jobpreparation\{self.common_file_path}", "Wasim_Solve_template.inp")
+        wasim_solve_cmd.TemplateInputFile =  "Wasim_Solve_template.inp"
         wasim_snapshots_cmd = WasimSnapShotsCommand()
-        wasim_snapshots_cmd.WorkingDirectory = self.load_case_result_files_dir
         wasim_snapshots_cmd.Parameters = templateParameters
-        wasim_snapshots_cmd.TemplateInputFile = os.path.join(
-            f"..\jobpreparation\{self.common_file_path}", "wasim_snapshots_template.inp")
+        wasim_snapshots_cmd.TemplateInputFile = "wasim_snapshots_template.inp"
 
         wasim_stru_cmd = WasimStruCommand()
         wasim_stru_cmd.WorkingDirectory = self.load_case_result_files_dir
         wasim_stru_cmd.Parameters = templateParameters
-        wasim_stru_cmd.TemplateInputFile = os.path.join(
-            f"..\jobpreparation\{self.common_file_path}", "Wasim_stru_template.inp")
+        wasim_stru_cmd.TemplateInputFile = "Wasim_stru_template.inp"
 
         sestra_cmd = SestraCommand()
         sestra_cmd.WorkingDirectory = self.load_case_result_files_dir
         sestra_cmd.Arguments = "/dsf"
         sestra_cmd.Parameters = templateParameters
-        sestra_cmd.TemplateInputFile = os.path.join(
-            f"..\jobpreparation\{self.common_file_path}", "sestra_template.inp")
+        sestra_cmd.TemplateInputFile = "sestra_template.inp"
         return  CompositeExecutableCommand(
             [python_copy_command, wasim_setup_cmd, wasim_solve_cmd, wasim_snapshots_cmd,
                 wasim_stru_cmd, sestra_cmd], self.load_case_result_files_dir)

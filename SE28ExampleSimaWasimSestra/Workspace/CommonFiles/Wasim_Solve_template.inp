@@ -140,11 +140,11 @@ iwave_file  = '0'
 !-----------------------------------------------------------------------
 !    Extra parameters:
 !-----------------------------------------------------------------------
-iwavelevSima_file ='  sima.wave '                  ! Prescribed wave elevation time history, output from Sima      
-file_SimaWaveHeading = '  sima.wavedirection '     ! If short crested wave applied in Sima, use wave components output by Sima instead
-file_faux_sima ='  sima.force '                    ! Prescribed forces/moments, output from Sima
+iwavelev_file ='  sima.wave '                  ! Prescribed wave elevation time history, output from Sima      
+!file_SimaWaveHeading = '  sima.wavedirection '     ! If short crested wave applied in Sima, use wave components output by Sima instead
+file_faux ='  sima.force '                    ! Prescribed forces/moments, output from Sima
 /
-file_SimaForceLocations = '  sima.forcepoints '  
+!file_SimaForceLocations = '  sima.forcepoints '  
 filepmot_Sima = ' sima.motion '                    ! File containing prescribed motion output from Sima
 !
 tprescribe_start = #Tstart#
