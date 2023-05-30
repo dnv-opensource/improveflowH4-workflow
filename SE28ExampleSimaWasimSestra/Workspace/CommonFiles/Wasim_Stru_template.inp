@@ -5,7 +5,7 @@ wl_pres = 1             ! =1: pressure scaling at waterline intersecting element
 wl_pres_xmin = -1e+030       
 wl_pres_xmax = 1e+030         
 waveam = -1            
-gripre = 'snap'          ! Prefix and path for *SnapG1.SIF file
+gripre = 'wasim_snap'    ! Prefix and path for *SnapG1.SIF file          ! Prefix and path for *SnapG1.SIF file
 filpre = ''              ! Prefix and path of L file   
 iseana = #FMT#         
 distol = 50              ! Tolerance in overlapping panel-areas

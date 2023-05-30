@@ -22,22 +22,39 @@ from dnv.onecompute import (
 from dnv.onecompute.directory_client import FileOptions
 from dnv.oneworkflow.oneworkflowclient import OneWorkflowClient, OneWorkflowConfig
 from dnv.oneworkflow.config import LogLevel, WorkspaceConfiguration
-CLOUD_APP_ID = "DAImproveFlowWorkflowCoreWorkerLinux"
+from dnv.oneworkflow.package_manager import PackageManager
+#CLOUD_APP_ID = "DAImproveFlowWorkflowCoreWorkerLinux"
 LOCAL_APP_ID = "OneWorkflowWorkerHost"
-
+CLOUD_APP_ID = LOCAL_APP_ID 
 
 @unique
 class Platform(Enum):
     Windows = 0
     Linux = 1
-
+def executable_name(cloud_run: bool) -> str: 
+    return "" if not cloud_run else "OneWorkflowWorkerHost"
+def oc_application_id(cloud_run: bool, platform: Platform) -> str: 
+    if cloud_run: 
+        return ( "ImproveFlowWorkerLinux" 
+                if platform == Platform.Linux 
+                else "ImproveFlowWorker" 
+                ) 
+    else: 
+        return "OneWorkflowWorkerHost"
+    
 
 
 PLATFORM = Platform.Windows
 default_service_path = os.path.join(os.environ["LOCALAPPDATA"],"OneCompute","LocalWorkflowHostExecutable","wc.exe")
 
-def one_workflow_client(workspace_id: str, workspace_path: str, cloud_run: bool, tmp: str, debug: bool = False) -> OneWorkflowClient:
+async def install_workflow_runtime():
+    await PackageManager().install_package_async(
+    "LocalWorkflowRuntime", "win-x64", PackageManager.Repository.TEST)
+
+def one_workflow_client(workspace_id: str, workspace_path: str, cloud_run: bool, tmp: str, platform: Platform = Platform.Linux, debug: bool = False) -> OneWorkflowClient:
     """Returns an instance of the OneWorkflowClient"""
+    
+    
 
     workflow_client = OneWorkflowClient(
         
@@ -46,8 +63,8 @@ def one_workflow_client(workspace_id: str, workspace_path: str, cloud_run: bool,
         workspace_id=workspace_id,
         workspace_path=workspace_path,
         environment=Environment.Testing,
-        application_id=LOCAL_APP_ID if not cloud_run else CLOUD_APP_ID,
-        executable_name="" if not cloud_run else "ImproveFlowWorker",
+        application_id=oc_application_id(cloud_run, platform),
+        executable_name=executable_name(cloud_run),
         #local_worker_host_service_path=r'C:\Users\kblu\source\repos\WorkflowDP\src\dotnet\DNV.One.Workflow.Hosts.LocalWorkflowHost\bin\Debug\net6.0\wc.exe' if debug else default_service_path,
         local_worker_host_apps_path=r'C:\Users\kblu\source\repos\WorkflowDP\src\dotnet\DNV.One.Workflow.WorkerHosts.OneWorkflowWorkerHost.Local\bin\Debug\net6.0' if debug else "",
         debug_local_worker=debug,
@@ -66,7 +83,7 @@ def job_status_changed_callback(client: OneWorkflowClient, job: Job):
     return job_status_changed
 
 
-def work_item_status_changed_callback(client: OneWorkflowClient):
+def work_item_status_changed_callback(client: OneWorkflowClient, option: FileOptions):
     """Returns the job status changed callback function"""
 
     async def work_item_status_changed(_: OneComputeClient, event: WorkItemEventArgs):
@@ -83,12 +100,7 @@ def work_item_status_changed_callback(client: OneWorkflowClient):
                 await client.download_result_files_async(
                     event.job_id,
                     event.work_item_id,
-                    FileOptions(
-                        max_size_bytes=11124_000,
-                        min_size_bytes=0,
-                        #patterns=["**/*.txt", "**/*.tda"],
-                        patterns=["**/*.*"],
-                    ),
+                    option
                 )
 
     return work_item_status_changed
@@ -108,7 +120,11 @@ async def work_item_progress_changed(_: OneComputeClient, event: WorkItemEventAr
     print(f"The work item {event.work_item_id} message is '{event.message}'")
 
 
-async def run_workflow_async(job: Job, client: OneWorkflowClient):
+async def run_workflow_async(job: Job, 
+                             client: OneWorkflowClient, 
+                             option: FileOptions = 
+                             FileOptions(max_size_bytes=11124_000,patterns=["**/*.txt", "**/*.lis", "**/*.mlg"])
+                             ):
     """Runs the workflow"""
     try:
         job_monitor = await client.submit_job_async(job)
@@ -121,7 +137,7 @@ async def run_workflow_async(job: Job, client: OneWorkflowClient):
         jpc += job_progress_changed
 
         wisc = job_monitor.work_item_status_changed
-        wisc += work_item_status_changed_callback(client)
+        wisc += work_item_status_changed_callback(client, option)
 
         wipc = job_monitor.work_item_progress_changed
         wipc += work_item_progress_changed
