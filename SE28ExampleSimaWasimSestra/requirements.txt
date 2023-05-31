@@ -1,0 +1,10 @@
+msa
+azure-storage-blob
+cancel-token
+asyncio
+httpx
+dacite
+stringcase
+pyjwt
+overrides
+python-dateutil
