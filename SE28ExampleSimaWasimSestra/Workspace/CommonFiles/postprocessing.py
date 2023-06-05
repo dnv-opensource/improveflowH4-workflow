@@ -1,6 +1,8 @@
 
 #the below line may be used if you want to test the script from the notebook and write the file to the common files folder
 #%%writefile f"{notebook_root_folder}\Workspace\CommonFiles\processing.py"
+# Ensure that 'import DNV.Sesam.Runtime' is executed first in your script
+import DNV.Sesam.Runtime
 """
 This code demonstrates the use of SifIO API. It stores node coordinates and displacements for the first 200 nodes in an ascii table for further processing.
 
