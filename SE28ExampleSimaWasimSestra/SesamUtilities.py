@@ -57,7 +57,12 @@ class WasimAndSestraTaskCreator:
         sestra_cmd.Arguments = "/dsf"
         sestra_cmd.Parameters = templateParameters
         sestra_cmd.TemplateInputFile = "sestra_template.inp"
-        return  CompositeExecutableCommand(
+        pos_processing_command = PythonCommand(
+            directory=self.common_file_path,
+            filename="postprocessing.py",
+            working_dir=self.load_case_result_files_dir)
+        
+        return CompositeExecutableCommand(
             [python_copy_command, wasim_setup_cmd, wasim_solve_cmd, wasim_snapshots_cmd,
-                wasim_stru_cmd, sestra_cmd], self.load_case_result_files_dir)
+                wasim_stru_cmd, sestra_cmd,pos_processing_command], self.load_case_result_files_dir)
         
