@@ -1,11 +1,14 @@
-#%%writefile f"{notebook_root_folder}\Workspace\CommonFiles\processing.py"
 
-#https://sesam.dnv.com/dev/api/sifio/
-#https://sesam.dnv.com/download/windows64/sesam_input_interface_format.pdf
-#https://sesam.dnv.com/download/windows64/sesam_results_interface_format.pdf
-from matplotlib import cm
-import matplotlib.pyplot as plt
-import os
+#the below line may be used if you want to test the script from the notebook and write the file to the common files folder
+#%%writefile f"{notebook_root_folder}\Workspace\CommonFiles\processing.py"
+"""
+This code demonstrates the use of SifIO API. It stores node coordinates and displacements for the first 200 nodes in an ascii table for further processing.
+
+The Python package should be installed with this command : pip install -i https://test.pypi.org/simple/ dnv-sifio --user
+The C# documentation of the API, may be found here: https://sesam.dnv.com/dev/api/sifio/
+The input interface file documentations can be found here https://sesam.dnv.com/download/windows64/sesam_input_interface_format.pdf
+and the results interface format here https://sesam.dnv.com/download/windows64/sesam_results_interface_format.pdf
+"""
 from DNV.Sesam.SifApi.Core import ISifData
 from DNV.Sesam.SifApi.IO import SesamDataFactory
 from System.Collections.Generic import List
@@ -33,11 +36,6 @@ def find_displacements_for_given_nodes_and_loadcase (loadcase :int, nodes : list
         disp_data = [disp for disp in disp_data[0].Data]
         print(node_coordinate[2:4])
         print("xdisp: " + str(disp_data[5]))
-        print("ydisp: " + str(disp_data[6]))
-        print("zdisp: " + str(disp_data[7]))
-        print("xcoord: " + str(node_coordinate[2]))
-        print("ycoord: " + str(node_coordinate[3]))
-        print("zcoord: " + str(node_coordinate[4]))
         node_data = node_coordinate[2:5] + disp_data[5:8]
         all_data.append(node_data)
     np.savetxt(f"postprocessedresultsLC{loadcase}.txt",
@@ -49,11 +47,4 @@ def find_displacements_for_given_nodes_and_loadcase (loadcase :int, nodes : list
 lc = 11
 nodes = range(1,200)
 find_displacements_for_given_nodes_and_loadcase(lc, nodes)
-#os.chdir(notebook_root_folder)
-# data = np.loadtxt(
-#     f"{notebook_root_folder}\\postprocessedresultsLC{lc}.txt")
-# xyz = data[:, 0:3]
-# total_disp = np.sqrt(data[:, 3]**2+data[:, 4]**2+data[:, 5]**2)
-# plt.plot(data[:,0], total_disp,'*')
-# plt.xlabel("x coordinate")
-# plt.ylabel("total disp")
+
