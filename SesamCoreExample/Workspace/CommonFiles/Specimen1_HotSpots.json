@@ -1,0 +1,290 @@
+{
+  "Header": {
+    "TimeStamp": "4-Apr-2022 - 08:00:00",
+    "Program": "Handmade",
+    "Workspace": "NARR"
+  },
+  "Hotspots": [
+    {
+      "Name": "Hotspot1",
+      "HotSpot": {
+        "CheckPointId": 1,
+        "Node": 1,
+        "Coordinates": {
+          "X": 0,
+          "Y": 0,
+          "Z": 0
+        }
+      },
+      "HotSpotPatch": {
+        "PatchType": 1,
+        "StartNodes": [
+          84,
+          1,
+          33
+        ],
+        "Elements": [
+          166,
+          167,
+          103,
+          102
+        ]
+      },
+      "WeldNormalLine": {
+        "Vector": {
+          "X": 0,
+          "Y": 1,
+          "Z": 0
+        }
+      },
+      "WeldDirection": {
+        "Vector": {
+          "X": -1,
+          "Y": 0,
+          "Z": 0
+        }
+      },
+      "HotSpotDefinition": {
+        "FatigueCheckPointSide": 0,
+        "HotSpotType": 0,
+        "HotSpotMethod": 0,
+        "AngularTolerance": {
+          "Unit": 0,
+          "Angle": 2
+        },
+        "Alpha": {
+          "Method": 2,
+          "Value": 0.9
+        },
+        "SnCurve": [
+          {
+            "Institution": "DNV2010",
+            "Name": "DNVC-I",
+            "Start": {
+              "Unit": 0,
+              "Angle": -90
+            },
+            "End": {
+              "Unit": 0,
+              "Angle": 90
+            }
+          }
+        ],
+        "SingleSnCurve": {
+          "Institution": "DNV2010",
+          "Name": "DNVC-I"
+        }
+      }
+    },
+    {
+      "Name": "Hotspot2",
+      "HotSpot": {
+        "CheckPointId": 2,
+        "Node": 1,
+        "Coordinates": {
+          "X": 0,
+          "Y": 0,
+          "Z": 0
+        }
+      },
+      "HotSpotPatch": {
+        "PatchType": 1,
+        "StartNodes": [
+          33,
+          1,
+          84
+        ],
+        "Elements": [
+          66,
+          67,
+          1,
+          2
+        ]
+      },
+      "WeldNormalLine": {
+        "Vector": {
+          "X": 0,
+          "Y": -1,
+          "Z": 0
+        }
+      },
+      "WeldDirection": {
+        "Vector": {
+          "X": 1,
+          "Y": 0,
+          "Z": 0
+        }
+      },
+      "HotSpotDefinition": {
+        "FatigueCheckPointSide": 0,
+        "HotSpotType": 0,
+        "HotSpotMethod": 0,
+        "AngularTolerance": {
+          "Unit": 0,
+          "Angle": 2
+        },
+        "Alpha": {
+          "Method": 2,
+          "Value": 0.9
+        },
+        "SnCurve": [
+          {
+            "Institution": "DNV2010",
+            "Name": "DNVC-I",
+            "Start": {
+              "Unit": 0,
+              "Angle": -90
+            },
+            "End": {
+              "Unit": 0,
+              "Angle": 90
+            }
+          }
+        ],
+        "SingleSnCurve": {
+          "Institution": "DNV2010",
+          "Name": "DNVC-I"
+        }
+      }
+    },
+    {
+      "Name": "Hotspot3",
+      "HotSpot": {
+        "CheckPointId": 3,
+        "Node": 24,
+        "Coordinates": {
+          "X": 0,
+          "Y": 0.075,
+          "Z": 0
+        }
+      },
+      "HotSpotPatch": {
+        "PatchType": 1,
+        "StartNodes": [
+          166,
+          24,
+          64
+        ],
+        "Elements": [
+          28,
+          27,
+          111,
+          112
+        ]
+      },
+      "WeldNormalLine": {
+        "Vector": {
+          "X": 1,
+          "Y": 0,
+          "Z": 0
+        }
+      },
+      "WeldDirection": {
+        "Vector": {
+          "X": -0,
+          "Y": 1,
+          "Z": 0
+        }
+      },
+      "HotSpotDefinition": {
+        "FatigueCheckPointSide": 0,
+        "HotSpotType": 0,
+        "HotSpotMethod": 0,
+        "AngularTolerance": {
+          "Unit": 0,
+          "Angle": 2
+        },
+        "Alpha": {
+          "Method": 2,
+          "Value": 0.9
+        },
+        "SnCurve": [
+          {
+            "Institution": "DNV2010",
+            "Name": "DNVC-I",
+            "Start": {
+              "Unit": 0,
+              "Angle": -90
+            },
+            "End": {
+              "Unit": 0,
+              "Angle": 90
+            }
+          }
+        ],
+        "SingleSnCurve": {
+          "Institution": "DNV2010",
+          "Name": "DNVC-I"
+        }
+      }
+    },
+    {
+      "Name": "Hotspot4",
+      "HotSpot": {
+        "CheckPointId": 4,
+        "Node": 24,
+        "Coordinates": {
+          "X": 0.075,
+          "Y": 0,
+          "Z": 0
+        }
+      },
+      "HotSpotPatch": {
+        "PatchType": 0,
+        "StartNodes": [
+          24,
+          39
+        ],
+        "Elements": [
+          294,
+          336
+        ]
+      },
+      "WeldNormalLine": {
+        "Vector": {
+          "X": 0,
+          "Y": 0,
+          "Z": 1
+        }
+      },
+      "WeldDirection": {
+        "Vector": {
+          "X": -1,
+          "Y": 0,
+          "Z": 0
+        }
+      },
+      "HotSpotDefinition": {
+        "FatigueCheckPointSide": 2,
+        "HotSpotType": 1,
+        "HotSpotMethod": 0,
+        "AngularTolerance": {
+          "Unit": 0,
+          "Angle": 2
+        },
+        "Alpha": {
+          "Method": 2,
+          "Value": 0.9
+        },
+        "SnCurve": [
+          {
+            "Institution": "DNV2010",
+            "Name": "DNVC-I",
+            "Start": {
+              "Unit": 0,
+              "Angle": -90
+            },
+            "End": {
+              "Unit": 0,
+              "Angle": 90
+            }
+          }
+        ],
+        "SingleSnCurve": {
+          "Institution": "DNV2010",
+          "Name": "DNVC-I"
+        }
+      }
+    }
+  ]
+}

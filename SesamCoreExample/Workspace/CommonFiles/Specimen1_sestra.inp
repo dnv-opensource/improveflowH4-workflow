@@ -1,0 +1,27 @@
+COMM SESTRA 10 installation examples. Example 1. 
+COMM Load history given as (load case 1)*sin(3.14*t)
+COMM <-1-><-2-><-3-><-4-><-5-><-6-><-7-><-8-><-9-><---10---><---11---><---12--->
+COMM <-1-><----2---><----3---><----4---><----5---><----6---><----7---><----8--->
+COMM      ANTP MSUM                                    CSING
+CMAS      2.   1.                                      1.e-8
+COMM CALTY                                                            H           
+FRSP 4                                                                0.01
+COMM ID        OPT  LCOM HIST TOUT
+LOHI 1.        1.   1.   1.   1.  
+COMM ID             OPT       LC1       
+LCOM 1.             1.        1.      
+COMM ID   TILO      OPT       FUNC      NSTEP     A         B         C
+HIST 1.   1.        2.        1         4         1.0       3.14      0.0
+COMM ID             OPT       T1        T2        T3        T4 
+TILO 1.             1.        0.        0.5       1.0       1.5
+COMM ID             OPT       T1        DELT      TN         
+TOUT 1.             2.        0.0       0.05      1.5
+COMM ITYP1
+ITOP 1.
+INAM Specimen1_
+RNAM Specimen1_                 STREAM
+COMM                WARP THCK - Activate first order thick shells.
+ELOP                1.0
+COMM ELOP                1.0  1.0
+COMM ELOP                1.0
+Z
