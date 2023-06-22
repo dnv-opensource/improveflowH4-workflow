@@ -1,0 +1,6 @@
+--extra-index-url https://testpypi.python.org/pypi
+dnv-sifio
+dnv-runtime
+numpy
+pythonnet
+pandas

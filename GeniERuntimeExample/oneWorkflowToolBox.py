@@ -10,8 +10,10 @@ from dnv.onecompute import (
 )
 from dnv.onecompute.flowmodel import WorkUnit, SchedulingOptions, FailureStrategy
 
+"""Tests Workflow"""
+
 from enum import Enum, unique
-from typing import Any, Optional
+from typing import Any
 
 from dnv.onecompute import (
     Environment,
@@ -49,7 +51,7 @@ async def install_workflow_runtime():
     await PackageManager().install_package_async(
     "LocalWorkflowRuntime", "win-x64", PackageManager.Repository.TEST)
 
-def one_workflow_client(workspace_id: str, workspace_path: str, cloud_run: bool, tmp: str, platform: Platform = Platform.Linux, max_cores: Optional[int] = None, debug: bool = False) -> OneWorkflowClient:
+def one_workflow_client(workspace_id: str, workspace_path: str, cloud_run: bool, tmp: str, platform: Platform = Platform.Linux, debug: bool = False) -> OneWorkflowClient:
     """Returns an instance of the OneWorkflowClient"""
     
     
@@ -67,7 +69,6 @@ def one_workflow_client(workspace_id: str, workspace_path: str, cloud_run: bool,
         local_worker_host_apps_path=r'C:\Users\kblu\source\repos\WorkflowDP\src\dotnet\DNV.One.Workflow.WorkerHosts.OneWorkflowWorkerHost.Local\bin\Debug\net6.0' if debug else "",
         debug_local_worker=debug,
         console_log_level=LogLevel.Warning,
-        max_concurrent_workers=max_cores
     )
     print(workflow_client.one_workflow_config.workflow_runner_config.temp_folder_path)
     return workflow_client
