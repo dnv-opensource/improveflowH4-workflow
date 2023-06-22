@@ -1,0 +1,6 @@
+{
+  "SestraInputFile": "Specimen1_sestra.inp",
+  "ModelFile": "Specimen1_T1.FEM",
+  "HotSpotCommandFile": "Specimen1_HotSpotPlate_SCORE-HOTSPOT.JNL",
+  "HotSpotModelFile": "Specimen1_HotSpots.json"
+}
