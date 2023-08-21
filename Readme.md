@@ -8,8 +8,8 @@ You need the relevant Sesam products  with license for local runs. In addition y
 To run in the cloud you need to contact DNV and have an account in https://test.onecompute.dnv.com/ 
 
 ## To run the examples do the following:
-1. Install Python 3.10 if neeeded (https://www.python.org/downloads/release/python-31011/)
-2. Set up a jupyter notebook environment, personally I like this https://code.visualstudio.com/docs/datascience/jupyter-notebooks 
+1. Install Python 3.10 if needed (https://www.python.org/downloads/release/python-31011/), typically for windows you want this [version](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe).
+2. Set up a jupyter notebook environment, personally I like this https://code.visualstudio.com/docs/datascience/jupyter-notebooks, [download link](https://code.visualstudio.com/download#).
 3. Follow the instructions in [SE28 Example](SE28ExampleSimaWasimSestra/workflowCoreDemoSE28SestraAndWasim.ipynb) to see how to install the required tools. They are required for all the notebooks.
 
 ## Examples provided
