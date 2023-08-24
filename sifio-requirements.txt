@@ -1,0 +1,6 @@
+--extra-index-url https://testpypi.python.org/pypi
+quantconnect-stubs 
+pythonnet 
+dnv-runtime==1.0.0.633  
+dnv-dotnet-intellisense==1.0.0.713
+dnv-sifio==5.3.2.945  
