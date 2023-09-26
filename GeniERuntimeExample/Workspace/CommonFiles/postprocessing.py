@@ -11,9 +11,9 @@ The C# documentation of the API, may be found here: https://sesam.dnv.com/dev/ap
 The input interface file documentations can be found here https://sesam.dnv.com/download/windows64/sesam_input_interface_format.pdf
 and the results interface format here https://sesam.dnv.com/download/windows64/sesam_results_interface_format.pdf
 """
-import DNV.Runtime
-from DNV.Sesam.SifApi.Core import ISifData
-from DNV.Sesam.SifApi.IO import SesamDataFactory
+from dnv.net.runtime import *
+from dnv.sesam.sifapi.core import ISifData
+from dnv.sesam.sifapi.io import SesamDataFactory
 import pandas as pd
 import os
 def write_node_element_count():

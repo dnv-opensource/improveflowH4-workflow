@@ -21,7 +21,7 @@ class GeniERuntimeTaskCreator:
                         workflow_client(workflow_client) : is needed to provide information about relevant folders like common files, result files and workspace.
             
         """
-        self.template_input_file = workflow_client.one_workflow_config.workspace_config
+        self.template_input_file = workflow_client.workspace_info
         self.common_files_folder = workflow_client.common_directory
         self.results_folder = workflow_client.results_directory
         self.data = data_frame
@@ -39,7 +39,7 @@ class GeniERuntimeTaskCreator:
             for key, value in row.items():
                 genieruntime_command.Parameters[key] = value
 
-            loadcase_folder_name = f"LoadCase{index + 1}"
+            loadcase_folder_name = f"Model_{index + 1}"
             result_folder_lc = os.path.join(self.results_folder, loadcase_folder_name)
             python_copy_command = PythonCommand(
                 directory=self.common_files_folder,

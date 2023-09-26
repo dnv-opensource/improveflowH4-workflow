@@ -33,7 +33,7 @@ class SimaTaskCreator:
                         workflow_client(workflow_client) : is needed to provide information about relevant folders like common files, result files and workspace.
             
         """
-        self.workspace = workflow_client.one_workflow_config.workspace_config
+        self.workspace = self.workspace = workflow_client.workspace_info
         self.common_files_folder = workflow_client.common_directory
         self.results_folder = workflow_client.results_directory
         self.sima_settings = sima_settings

@@ -1,8 +1,0 @@
---extra-index-url https://testpypi.python.org/pypi
-dnv-sesam-commands==5.12.0.121
-dnv-oneworkflow==1.0.0.713
-dnv-onecompute==8.2.0.6
-
-
-
-
