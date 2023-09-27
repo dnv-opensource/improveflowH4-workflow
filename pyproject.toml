@@ -16,7 +16,7 @@ name = "PyPI"
 priority = "primary"
 
 [tool.poetry.dependencies]
-python = "3.10.1"
+python = "^3.10"
 pythonnet = "^3.0.2"
 dnv-net-runtime = "^1.0.0.39"
 dnv-net-intellisense = "^1.0.0.31"
