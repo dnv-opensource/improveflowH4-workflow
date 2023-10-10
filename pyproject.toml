@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "ow-venv-poetry"
-version = "0.1.0"
+name = "ow"
+version = "1.0.0"
 description = ""
 authors = ["DA <deepak.arora@dnv.com>"]
 readme = "README.md"
@@ -10,31 +10,28 @@ name = "test"
 url = "https://test.pypi.org/simple/"
 priority = "supplemental"
 
-
-[[tool.poetry.source]]
-name = "PyPI"
-priority = "primary"
-
 [tool.poetry.dependencies]
-python = "^3.10"
-pythonnet = "^3.0.2"
+python = ">=3.10,<3.11"
 dnv-net-runtime = "^1.0.0.39"
 dnv-net-intellisense = "^1.0.0.31"
 dnv-sifio = "^5.3.2.994"
 quantconnect-stubs = "^15851"
-dnv-onecompute = "^8.3.0.11"
-dnv-oneworkflow = "^1.0.0.799"
+dnv-onecompute = "^8.3.0.22"
+dnv-oneworkflow = "^1.0.0.811"
 dnv-sesam-commands = "^5.12.0.192"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+pytest-asyncio = "^0.21.1"
+pytest-check = "^2.2.2"
+pytest-retry = "^1.4.1"
+pytest-xdist = "^3.3.1"
+jupyter = "^1.0.0"
+ipykernel = "^6.25.2"
 ipywidgets ="^8.1.1"
 pandas = "^2.1.1"
 openpyxl ="^3.1.2"
 
-[tool.poetry.group.dev.dependencies]
-jupyter = "^1.0.0"
-ipykernel = "^6.25.2"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-
