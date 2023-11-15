@@ -33,27 +33,24 @@ class GeniERuntimeTaskCreator:
         """
         parallel_work = ParallelWork()
         for index, row in self.data.iterrows():
+            loadcase_folder_name = f"Model_{index + 1}"
+            result_folder_lc = os.path.join(self.results_folder, loadcase_folder_name)
             genieruntime_command = GeniERuntimeCommand()
             genieruntime_command.Parameters = {}
             genieruntime_command.TemplateInputFile = "ContainerHull_template.js"
             for key, value in row.items():
                 genieruntime_command.Parameters[key] = value
-
-            loadcase_folder_name = f"Model_{index + 1}"
-            result_folder_lc = os.path.join(self.results_folder, loadcase_folder_name)
+           
             python_copy_command = PythonCommand(
                 directory=self.common_files_folder,
-                filename="copyfiles.py",
-                working_dir=result_folder_lc)
+                filename="copyfiles.py")
             post_processing_command = PythonCommand(
                 directory=self.common_files_folder,
-                filename="postprocessing.py",
-                working_dir=result_folder_lc)
+                filename="postprocessing.py")
             cmd = CompositeExecutableCommand([python_copy_command, genieruntime_command, post_processing_command], result_folder_lc)
 
             work_unit = (
                 WorkUnit(cmd, work_unit_id=loadcase_folder_name)
-                .input_directory(result_folder_lc)
                 .output_directory(result_folder_lc, include_files=["**/*.FEM","**/*.csv"])
             )
             parallel_work.WorkItems.append(work_unit)
