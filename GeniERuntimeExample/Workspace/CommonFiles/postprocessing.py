@@ -21,6 +21,7 @@ def write_node_element_count():
     Reads the number of occurrences of a data type and the size of the established pointer table
     for a datatype.
     """
+    print("Reading node and element count from T1.FEM file\n")
     with SesamDataFactory.CreateReader(".", 'T1.FEM') as reader:
         reader.CreateModel()
         all_data =[]
