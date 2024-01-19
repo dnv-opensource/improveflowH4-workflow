@@ -3,10 +3,11 @@ import pandas as pd
 from typing import Any
 import os 
 from dnv.sesam.sima_command import SimaCommand
+from dnv.onecompute.flowmodel import ParallelWork
+from dnv.oneworkflow import PythonCommand
 from dnv.onecompute import FileSpecification
 from dnv.oneworkflow.oneworkflowclient import OneWorkflowClient
-from dnv.oneworkflow.utils.workunit_extension import *
-from dnv.oneworkflow.utils.starter import *
+
 class SimaSettings:
     def __init__(self, sima_exe_path: str, result_files_to_keep=[
         "*-sima.lis",
@@ -52,7 +53,7 @@ class SimaTaskCreator:
 
 
 
-    def get_sima_commands(self, full_path_to_load_case_file: str, stask_file: str ,single_task: bool = False):
+    def get_sima_work_unit(self, full_path_to_load_case_file: str, stask_file: str ,single_task: bool = False):
         """Returns a parallel processing unit based on input given in an Excel file.
         
         Parameters:
@@ -62,13 +63,18 @@ class SimaTaskCreator:
 
         """
         os.chdir(self.workspace.workspace_path)
-        commands_info = []      
+        load_cases_parent_folder_name = self.workspace.load_cases_parent_directory
+
+        parallel_work = ParallelWork()
+        parallel_work.work_items.clear()
+
         # Open environmental input file
-        index = 0
         df_cases = pd.read_excel(full_path_to_load_case_file, index_col=0)
         for loadcase_folder_name, case in df_cases.iterrows():
-            index = index + 1
-            loadcase_folder_name = f"loadcase_{index}"
+            load_case_folder = os.path.join(
+                load_cases_parent_folder_name, loadcase_folder_name)
+            result_folder_lc = os.path.join(
+                self.workspace.results_directory, loadcase_folder_name)
             # Get SIMA commands and inputs 
             commands_inputs = self.get_commands_inputs(stask_file, case.to_dict())
             # Create SimaCommand instance
@@ -76,9 +82,11 @@ class SimaTaskCreator:
             sima_cmd.commands = commands_inputs["commands"]
             sima_cmd.input = commands_inputs["inputs"]
             sima_cmd.sima_result_files = self.sima_settings.result_files_to_keep
-            #sima_cmd.working_directory = load_case_folder
+            sima_cmd.working_directory = load_case_folder
 
             # Add work item to ParallelWork instance
-            cmd_info = CommandInfo(commands=[sima_cmd],load_case_foldername=loadcase_folder_name)
-            commands_info.append(cmd_info)
-        return commands_info
+            parallel_work.add(sima_cmd, work_unit_id=loadcase_folder_name).output_directory(result_folder_lc,
+                                                                                            include_files=self.sima_settings.result_files_to_keep)
+            if single_task == True:
+                break
+        return parallel_work
