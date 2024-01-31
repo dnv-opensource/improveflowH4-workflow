@@ -12,12 +12,12 @@ priority = "supplemental"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
-dnv-net-runtime = "^1.0.0.39"
+dnv-net-runtime = "^1.0.0.41"
 dnv-net-intellisense = "^1.0.0.31"
 dnv-sifio = "^5.3.2.994"
 quantconnect-stubs = "^15851"
-dnv-onecompute = "^8.4.0.88"
-dnv-oneworkflow = "^1.0.0.1204"
+dnv-onecompute = "^9.1.0.15"
+dnv-oneworkflow = "^1.0.0.1247"
 dnv-sesam-commands = "^5.14.0.17"
 
 [tool.poetry.group.dev.dependencies]
