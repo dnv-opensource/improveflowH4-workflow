@@ -1,11 +1,11 @@
 from pathlib import Path
 import os
 from dnv.oneworkflow.utils.workunit_extension import *
-from dnv.oneworkflow.utils.starter import *
+from dnv.oneworkflow.utils import *
 from dnv.onecompute.directory_client import FileOptions
 from dnv.oneworkflow import  ParallelWork
 from dnv.onecompute.flowmodel import WorkUnit
-from dnv.sesam.sesam_core_command import *
+from dnv.sesam.commands import *
 from dnv.oneworkflow import PythonCommand, CompositeExecutableCommand
 import shutil
 import json

@@ -1,10 +1,11 @@
 
 from dnv.oneworkflow.utils.workunit_extension import *
-from dnv.oneworkflow.utils.starter import *
+from dnv.oneworkflow.utils import *
 from pathlib import Path
 import os
 import pandas as pd
-from dnv.sesam.genie_runtime_command import *
+from dnv.sesam.commands import *
+import asyncio
 root_folder = os.path.dirname(os.path.abspath(__file__))
 workspacePath = str(Path(root_folder, 'Workspace'))
 workspaceId = "GeniERuntimeExample"

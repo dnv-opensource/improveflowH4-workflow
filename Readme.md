@@ -11,7 +11,7 @@ The following software is needed:
     Including the following extensions (install them after VSCode is installed). Jupyter and Python will most likely be installed automatically when opening an ipynb file.
     * [Python extension](https://code.visualstudio.com/docs/languages/python), [download link](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
    * [Jupyer Notebook extension](https://code.visualstudio.com/docs/datascience/jupyter-notebooks), [download link](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
-   * [Python environment manager download link](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager).
+
 * You also need git for cloning this code: https://git-scm.com/downloads 
 
 You need the relevant Sesam products  with license for local runs. In addition you need Application Version Manager for local execution. You can get the Sesam applications here: https://sesam.dnv.com/download/programs.html.
