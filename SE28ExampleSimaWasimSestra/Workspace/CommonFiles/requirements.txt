@@ -1,5 +1,6 @@
 --extra-index-url https://testpypi.python.org/pypi
-quantconnect-stubs 
-pythonnet 
-dnv-net-runtime ==1.0.0.39  
-dnv-sifio==5.3.2.994  
+dnv-sifio
+dnv-net-runtime 
+numpy
+pythonnet
+pandas
