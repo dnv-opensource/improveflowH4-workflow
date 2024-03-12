@@ -39,9 +39,13 @@ def find_displacements_for_given_nodes_and_loadcase (loadcase :int, nodes : list
             print("xdisp: " + str(disp_data[5]))
             node_data = node_coordinate[2:5] + disp_data[5:8]
             all_data.append(node_data)
-        np.savetxt(f"postprocessedresultsLC{loadcase}.txt",
+        filename = f"postprocessedresultsLC{str(loadcase)}.txt"
+        print(f"writing file {filename}")
+        np.savetxt(filename,
                     all_data, header="xcoord\t\t\t, \t\t\tycoord\t\t\t,\t\t\tzcoord\t\t\t,\t\t\txdisp\t\t\t,\t\t\tydisp\t\t\t, \t\t\tzdisp\t\t")
-   
+        os.path.exists(os.path.join(os.getcwd(),filename))
+        print(f"file written to {os.path.join(os.getcwd(),filename)}")
+
 lc = 11
 nodes = range(1,200)
 find_displacements_for_given_nodes_and_loadcase(lc, nodes)
