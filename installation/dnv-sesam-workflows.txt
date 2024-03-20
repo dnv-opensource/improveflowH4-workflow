@@ -1,0 +1,3 @@
+dnv-sesam-commands==5.16.0.124
+dnv-oneworkflow
+dnv-onecompute
